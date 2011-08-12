@@ -22,10 +22,11 @@
 \usepackage{helvet}
 \usepackage{listings}
 
-\title{Adventures with Radare2\\Reversing a Simple Shellcode}
+\title{Reversing a Simple Shellcode with Radare2}
 \subtitle{\includegraphics[width=.25\textwidth]{r2.png}}
 \author{Edd Barrett}
 \date{\today}
+\institute{@vext01}
 
 \lstset{
   basicstyle=\ttfamily\small,
@@ -48,7 +49,7 @@
 
 \begin{frame}
   \titlepage
-  \vspace{-5em}
+  \vspace{-4em}
   \begin{center}
   \includegraphics[width=.25\textwidth]{qr.png}\\
   Twitter: @radareorg\hfill www: http://radare.org
@@ -72,13 +73,14 @@ Radare2 is an open-source framework to aid reversing and modification of binary 
 \item Hex editor
 \item Debugger
 \item Disassembler
-\item Binary diffing
 \item \ldots
 \end{itemize}
 \end{block}
 
-\begin{block}{Authors}
-@pancake, @nibble, a handful of testers and contributors.
+\vfill
+
+\begin{block}{Developers}
+@trufae, @nibble\_ds, @earada and handful of testers and contributors.
 \end{block}
 
 \end{frame}
@@ -171,7 +173,7 @@ procedure specified using the target operand.
 Before CALL&&After CALL\\
 \\
 \includegraphics[width=.44\textwidth]{stack1.pdf}&
-~~~~~~~&
+~~~~~~~\pause&
 \includegraphics[width=.37\textwidth]{stack2.pdf}\\
 \end{tabular}
 \end{frame}
@@ -208,7 +210,7 @@ known as ``system calls''.
 \begin{itemize}
   \item The exploit I have just showed you does not work on modern UNIX/Linux ;)\\
   \item NX bit or $W\char`\^X$ prevents such attacks\\
-  \item Pages in the stack are writable, therefore not also executable.
+  \item Pages in \texttt{.data} are writable, therefore not also executable.
   \end{itemize}
 \end{block}
 

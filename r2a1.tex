@@ -17,7 +17,7 @@
 
 \documentclass{beamer}
 
-\usetheme{Copenhagen}
+\usetheme{AnnArbor}
 \usecolortheme{crane}
 \usepackage{helvet}
 \usepackage{listings}
@@ -101,6 +101,127 @@ Radare2 is an open-source framework to aid reversing and modification of binary 
   \frametitle{\insertsection}
 
   \lstinputlisting{small-code.c}
+
+  \footnote{Thanks to ``Gunslinger'' for this example}
+
+\end{frame}
+
+\section{Overlapping Registers in x86/x64}
+
+\begin{frame}
+  \frametitle{\insertsection}
+
+  \includegraphics[width=\textwidth]{rax}
+  \vfill
+
+\begin{block}{Register Configuration due to Legacy}
+  \begin{itemize}
+    \item In the 16-bit days we had \texttt{ax}
+      \begin{itemize}
+        \item High and low byte addressable via \texttt{ah}, \texttt{al}
+      \end{itemize}
+    \item In the 32-bit days we also had \texttt{eax}
+    \item The newest x64 register has \texttt{rax}
+  \end{itemize}
+\end{block}
+
+\begin{center}
+Similarly for \texttt{bx, cx, dx}.
+\end{center}
+
+\end{frame}
+
+
+
+\section{CALL}
+\begin{frame}
+  \frametitle{\insertsection}
+
+  \begin{block}{From the Intel Manual}
+    Saves procedure linking information on the stack and branches to the called
+procedure specified using the target operand.
+  \end{block}
+
+  \vfill
+
+  \begin{center}
+  \includegraphics[width=.5\textwidth]{manual.jpg}
+  \end{center}
+
+\end{frame}
+
+
+\section{CALL Example}
+\begin{frame}[fragile]
+  \frametitle{\insertsection}
+
+\begin{lstlisting}[basicstyle=\footnotesize\tt]
+0x1c000286   16    e8e1ffffff       call dword 0x1c00026c
+0x1c00028b   16    81               ...
+\end{lstlisting}
+
+\vfill
+
+\begin{tabular}{ccc}
+Before CALL&&After CALL\\
+\\
+\includegraphics[width=.44\textwidth]{stack1.pdf}&
+~~~~~~~&
+\includegraphics[width=.37\textwidth]{stack2.pdf}\\
+\end{tabular}
+\end{frame}
+
+
+\section{System Calls}
+\begin{frame}[fragile]
+  \frametitle{\insertsection}
+
+\begin{block}{Definition}
+The userland can request services from the kernel by calling special functions
+known as ``system calls''.
+\end{block}
+
+\begin{block}{How do they work?}
+\begin{itemize}
+\item System calls are not called with the \texttt{CALL} instr\\
+\vfill
+\item Instead an 0x80 interrupt is fired\\
+  \begin{itemize}
+  \item The system call number to execute is in \texttt{eax}\\
+  \item Arguments should be in $\{$ \texttt{ebx, ecx, edx, esi, edi, ebp}$\}$\\
+  \end{itemize}
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\section{This Exploit Worked Once...}
+\begin{frame}[fragile]
+  \frametitle{\insertsection}
+
+\begin{block}{Actually\ldots}
+\begin{itemize}
+  \item The exploit I have just showed you does not work on modern UNIX/Linux ;)\\
+  \item NX bit or $W\char`\^X$ prevents such attacks\\
+  \item Pages in the stack are writable, therefore not also executable.
+  \end{itemize}
+\end{block}
+
+\end{frame}
+
+\section{Concluding Comments}
+\begin{frame}[fragile]
+  \frametitle{\insertsection}
+
+\begin{block}{Thanks for Listening}
+  \begin{itemize}
+  \item Original blog post:
+\url{http://canthack.org/2011/07/adventures-with-radare-1-a-simple-shellcode-analysis/}\\
+  \item Follow radare2 on twitter: @radareorg\\
+  \item Find radare2 on the web: \url{http://radare.org}\
+  \item Source code for these slides: \url{https://github.com/vext01/r2-adventures1-talk}
+  \end{itemize}
+\end{block}
 
 \end{frame}
 

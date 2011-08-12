@@ -26,12 +26,8 @@
 \author{Edd Barrett}
 \date{\today}
 
-\institute{%
-  canthack.org
-}
-
 \lstset{
-  basicstyle=\ttfamily,
+  basicstyle=\ttfamily\small,
   breaklines=true,
   stringstyle=\ttfamily,
   frame=tlbr,
@@ -39,34 +35,72 @@
   backgroundcolor=\color{white}
 }
 
-\AtBeginSection[]{%
-\begin{frame}
-\partpage
-\tableofcontents[currentsection]
-\end{frame}
-}
+
+%\AtBeginSection[]{%
+%\begin{frame}
+%\partpage
+%\tableofcontents[currentsection]
+%\end{frame}
+%}
 
 \begin{document}
 
 \begin{frame}
   \titlepage
+  \vspace{-2em}
+  \begin{center}
+  \includegraphics[origin=c,width=.25\textwidth]{qr.png}\\
+  Twitter: @radareorg\hfill www: http://radare.org
+  \end{center}
 \end{frame}
 
 \section{Introducing Radare2}
 
-
-
-\subsection{XXX}
 \begin{frame}[fragile]
-\frametitle{\insertsubsection}
+\frametitle{\insertsection}
 
-\begin{block}
-Radare2 is an open-source framework to aid disassembling, debugging, analysing and
-modification of binary files.
+\begin{block}{What is Radare2?}
+Radare2 is an open-source framework to aid reversing and modification of binary files.
 \end{block}
 
+\vfill
 
-XXX
+\begin{block}{Some features}
+\begin{itemize}
+\item Multi-architecture and multi-platform
+\item Hex editor
+\item Debugger
+\item Disassembler
+\item Binary diffing
+\item \ldots
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\section{Shellcodes}
+\begin{frame}
+  \frametitle{\insertsection}
+
+  \begin{block}{Definition}
+  "Shellcode" is a term colloquially used to refer to the payload of an
+  exploit. Typically this would be code injected to start a shell.    
+  \end{block}
+
+  \vfill
+
+  \begin{itemize}
+    \item Not to be confused with ``Shell Script''.
+    \vfill
+    \item See \url{http://www.projectshellcode.com/} for examples.
+  \end{itemize}
+\end{frame}
+
+\section{An Example -- What does this code do?}
+\begin{frame}
+  \frametitle{\insertsection}
+
+  \lstinputlisting{small-code.c}
 
 \end{frame}
 
